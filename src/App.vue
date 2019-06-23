@@ -2,27 +2,27 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <Button variant="contained" color="primary">
+    <!-- <Button variant="contained" color="primary">
       Hello World
-    </Button>
+    </Button>-->
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-import Button from '@material-ui/core/Button';
+import HelloWorld from "./components/HelloWorld.vue";
+// import Button from '@material-ui/core/Button';
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
     HelloWorld
   }
-}
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
