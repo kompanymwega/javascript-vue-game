@@ -1,16 +1,46 @@
 <template>
-  <div class="container">
-    <!-- app header to display countdown for the whole game -->
+  <!-- implement vuetify layout :done -->
+  <!-- implement life reduction and healing abilities -->
+  <!-- implement special weapons to aid the user -->
+  <!-- implement battle sound and ambience for the app -->
+  <!-- research functions for cool effects -->
+  <!-- represent both player and enemy avators -->
+  <!-- use animations to show attacks and healing happenning in app -->
+  <v-layout row wrap>
+    <v-flex xs6 flexbox>
+      <v-card>
+        <v-card-title primary-title>
+          <div>
+            <h3 class="headline mb-0">Player</h3>
+            <div>Life-bar: {{ player }}</div>
+          </div>
+        </v-card-title>
+
+        <v-card-actions>
+          <v-btn flat color="orange">Attack</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn flat color="orange">Heal</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-flex>
     
-    <div class="well">
-      <h4>Player</h4>
-      <p>{{ player }}</p>
-    </div>
-    <div class="well">
-      <h4>Enemy</h4>
-      {{ enemy }}
-    </div>
-  </div>
+    <v-flex xs6 sm6 flexbox>
+      <v-card>
+        <v-card-title primary-title>
+          <div>
+            <h3 class="headline mb-0">Enemy</h3>
+            <div>Life-bar: {{ enemy }}</div>
+          </div>
+        </v-card-title>
+
+        <v-card-actions>
+          <v-btn flat color="orange">Attack</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn flat color="orange">Heal</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 <script>
 export default {
@@ -22,6 +52,12 @@ export default {
       player: 10,
       // add enemy life to 1qual the player life
       enemy: 10
+    };
+  },
+  attackPlayer: function() {
+    const deduction = Math.floor(Math.random() * 10);
+    return {
+      deduction
     };
   }
 };
@@ -35,11 +71,10 @@ export default {
   padding: 20px;
 }
 .well {
-  display: flex;
-  flex-direction: column;
+  display: inline-block;
   background-color: #d3d3d3;
   width: 30%;
-  margin: 10px auto;
+  margin-left: 10vw;
 }
 </style>
 

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1 class="app-title"> Attack $ Defend </h1>
+    <h1 class="app-title"> Attack & Defend </h1>
     
     <div class="progress-bar">{{ countDownBar }}</div>
     
