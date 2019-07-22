@@ -1,35 +1,64 @@
 <template>
-  <div id="app">
-    <h1 class="app-title"> Attack & Defend </h1>
-    
-    <div class="progress-bar">{{ countDownBar }}</div>
-    
-    <Playground />
-    <!-- <Button variant="contained" color="primary">
-      Hello World
-    </Button>-->
-  </div>
+  <v-layout id="app" row wrap>
+    <v-flex xs12 sm10 offset-sm1 fill-height>
+      <v-card-text class="time-right"> {{this.getTime }} </v-card-text>
+      <v-card class="progress-bar">
+      <v-card-title class="app-title">***Last-Man Standing***</v-card-title>
+      <v-spacer></v-spacer>
+
+      <h4 class="text">$ Defeat the Boss to advance $</h4>
+      <v-spacer></v-spacer>
+      
+        <v-card-text >Total_session_time: {{ countDownBarStart }} ms.</v-card-text>
+
+      </v-card>
+      <v-spacer></v-spacer>
+      <v-card>
+        <v-card-text > {{this.countDown }} </v-card-text>
+
+      </v-card>
+      
+      <Playground />
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
-import Playground from './components/playground';
-// import Button from '@material-ui/core/Button';
+import Playground from "./components/playground";
 
 export default {
   name: "app",
   components: {
     Playground
   },
-  data: function(){
+  data() {
     return {
       // implement countdown with js
-      countDownBar: ' 3 min countdown to be implemented'
+      countDownBarStart: "7200"
+    };
+  },
+  computed:{
+    getTime: function () {
+      let localTime = Date().toLocaleLowerCase();
+      return localTime;
+    },
+    countDown: function () {
+      let startValue = this.countDownBarStart;
+
+      let newValue =Date().toLocaleLowerCase();
+      return {
+        startValue,
+        newValue
+      };
+
+
+      
     }
   }
 };
 </script>
 
-<style>
+<style >
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -38,15 +67,21 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
   align-items: center;
+  padding: 0.5vh;
   vertical-align: center;
 }
-.app-title { 
-  padding: 10px;
-  font-size: 1.8em;
+.app-title {
+  padding-bottom: 30px;
+  align-self: center;
+  font-size: 2.4em;
   font-weight: 400;
 }
 .progress-bar {
-  padding: 10px;
+  padding-top: 30px;
+  padding-bottom: 30px;
   font-size: 1.3em;
+}
+.time-right{
+  text-align: end;
 }
 </style>

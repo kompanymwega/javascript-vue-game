@@ -12,32 +12,29 @@
         <v-card-title primary-title>
           <div>
             <h3 class="headline mb-0">Player</h3>
-            <div>Life-bar: {{ player }}</div>
+            <div>Life: {{ player }}</div>
           </div>
         </v-card-title>
 
         <v-card-actions>
-          <v-btn flat color="orange">Attack</v-btn>
+          <v-btn flat color="red" >Attack</v-btn>
           <v-spacer></v-spacer>
-          <v-btn flat color="orange">Heal</v-btn>
+          <v-btn flat color="green">Heal</v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>
-    
+
     <v-flex xs6 sm6 flexbox>
       <v-card>
         <v-card-title primary-title>
           <div>
-            <h3 class="headline mb-0">Enemy</h3>
-            <div>Life-bar: {{ enemy }}</div>
+            <h3 class="headline mb-0">Boss Level 1</h3>
+            <div>Life: {{ enemy }}</div>
           </div>
         </v-card-title>
-
-        <v-card-actions>
-          <v-btn flat color="orange">Attack</v-btn>
-          <v-spacer></v-spacer>
-          <v-btn flat color="orange">Heal</v-btn>
-        </v-card-actions>
+        <v-card-text>
+          <span>stats about enemy</span>
+        </v-card-text>
       </v-card>
     </v-flex>
   </v-layout>
@@ -45,20 +42,19 @@
 <script>
 export default {
   name: "playground",
-  data: function() {
+  data() {
     return {
       title: "playground resources",
       // add player life equal to 10 life points
-      player: 10,
+      player: 100,
       // add enemy life to 1qual the player life
-      enemy: 10
+      enemy: 200
     };
   },
-  attackPlayer: function() {
+  attackPlayer : () => {
     const deduction = Math.floor(Math.random() * 10);
-    return {
-      deduction
-    };
+
+    return deduction;
   }
 };
 </script>
