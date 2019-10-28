@@ -1,5 +1,7 @@
 # javascript-vue-game
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/kompanycoder/javascript-vue-game.svg)](https://greenkeeper.io/)
+
 ## Project setup
 ```
 npm install
