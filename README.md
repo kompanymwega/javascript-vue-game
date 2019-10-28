@@ -1,6 +1,6 @@
 # javascript-vue-game
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/kompanycoder/javascript-vue-game.svg)](https://greenkeeper.io/)
+[![Greenkeeper badge](https://badges.greenkeeper.io/kompanycoder/javascript-vue-game.svg)](https://greenkeeper.io/) [![DeepScan grade](https://deepscan.io/api/teams/5092/projects/6877/branches/60337/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=5092&pid=6877&bid=60337)
 
 ## Project setup
 ```
