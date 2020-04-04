@@ -9,14 +9,14 @@
         <h4 class="text">$ Defeat the Boss to advance $</h4>
         <v-spacer></v-spacer>
 
-        <v-card-text>Total_session_time: {{ countDownBarStart }} sec.</v-card-text>
+        <v-card-text>Total_session_time: {{ this.sessionDisplay() }} min.</v-card-text>
       </v-card>
       <v-spacer></v-spacer>
       <v-card>
         <v-card-text >
-          <span> {{ this.countDown }}</span> <br />
+          <!-- <span> {{ this.countDown }}</span> <br /> -->
 
-          <v-btn flat color="blue"> Begin Game</v-btn>
+          <v-btn flat color="blue" @click="this.countDown"> Begin Game</v-btn>
         </v-card-text>
       </v-card>
 
@@ -36,29 +36,47 @@ export default {
   data() {
     return {
       // implement countdown with js
-      countDownBarStart: "120"
+      countDownValue: 120,
+      sessionTime: 240
     };
+  },
+  methods: {
+    sessionDisplay: function(){
+      let countDownTime = Math.floor(this.sessionTime);
+      console.log(typeof(this.sessionTime));
+      let min = parseInt(countDownTime/60);
+      let sec = parseInt(countDownTime % 60);
+      let output = parseInt(min)+' : '+ parseInt(sec);
+      console.log(output);
+      return output;
+
+    },
+    countDown: function() {
+
+      if(this.sessionTime){
+        let newValue = parseInt(this.sessionTime);
+
+        setInterval(()=>{
+          // console,log(newValue);
+          let limit = 0;
+          while (newValue !== limit) {
+            newValue = newValue - 1;
+            // console.log(newValue);
+            this.sessionTime = newValue;
+            // startValue = newValue;
+            return this.sessionTime;
+          }
+        }, 1000);
+      } 
+    }
   },
   computed: {
     getTime: function() {
       let current = new Date();
       let localTime = current.toDateString();
       return localTime;
-    },
-    countDown: function() {
-      let startValue = this.countDownBarStart;
-
-      let newValue = parseInt(startValue);
-
-      let limit = 0;
-
-      while (newValue >= limit) {
-        let deduct = newValue--;
-        console.log(deduct);
-        return deduct;
-      } 
-
     }
+    
   }
 };
 </script>
@@ -77,7 +95,7 @@ export default {
 }
 .app-title {
   padding-bottom: 30px;
-  align-self: center;
+  justify-content: center;
   font-size: 2.4em;
   font-weight: 400;
 }
