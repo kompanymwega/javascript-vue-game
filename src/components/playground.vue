@@ -6,7 +6,7 @@
   <!-- research functions for cool effects -->
   <!-- represent both player and enemy avators -->
   <!-- use animations to show attacks and healing happenning in app -->
-  <v-layout row wrap>
+  <v-layout row nowrap>
     <v-flex xs6 flexbox>
       <v-card>
         <v-card-title primary-title>
@@ -15,14 +15,22 @@
             <div>Life: {{ player }}</div>
           </div>
         </v-card-title>
-
-        <v-card-actions>
-          <v-btn flat color="red" >Attack</v-btn>
+        
+        <v-card-actions v-if="!playerLost">
+          <v-btn flat color="red" @click="this.attackBoss" >Attack</v-btn>
+          <v-btn flat color="orange" @click="this.defendPlayer" >Defend</v-btn>
           <v-spacer></v-spacer>
-          <v-btn flat color="green">Heal</v-btn>
+          <v-btn flat color="green" @click="this.healPlayer">Heal</v-btn>
         </v-card-actions>
+        <v-card-actions v-else>
+          <h3 v-text="finalMessage" color="red">{{finalMessage}}</h3> 
+        </v-card-actions>
+
       </v-card>
+      
     </v-flex>
+    
+    <v-spacer></v-spacer>
 
     <v-flex xs6 sm6 flexbox>
       <v-card>
@@ -33,11 +41,15 @@
           </div>
         </v-card-title>
         <v-card-text>
-          <span>stats about enemy</span>
+          <span v-if="!enemyLost">Enemy still strong enough to fight</span>
+          <h6 v-else v-text="finalMessage" color="red">{{finalMessage}}</h6> 
         </v-card-text>
       </v-card>
+      
     </v-flex>
+    
   </v-layout>
+
 </template>
 <script>
 export default {
@@ -48,14 +60,62 @@ export default {
       // add player life equal to 10 life points
       player: 100,
       // add enemy life to 1qual the player life
-      enemy: 200
+      enemy: 200,
+      playerLost: false,
+      enemyLost: false,
+      finalMessage: ''
     };
   },
-  attackPlayer : () => {
-    const deduction = Math.floor(Math.random() * 10);
+  methods: {
+    attackBoss : function() {
+    const deduction = Math.floor(Math.random() * 20);
+    if(this.enemy > 0) {
+      console.log(deduction);
+      this.enemy = this.enemy - deduction;
+      this.enemyLifeCheck(this.enemy);
+      console.log(this.enemy);  
+    } else {
+      this.enemy = 0;
+    }
+    // boss also attacks player similtaneously
+    const damage = Math.floor(Math.random() * 10);
+    if (this.player > 0){
+      this.player = this.player - damage;
+      this.playerLifeCheck(this.player);
+      console.log(this.player);
+    } else {
+      this.player = 0;
+    }
 
-    return deduction;
+    // return deduction;
+    },
+    defendPlayer: function(){},
+    healPlayer: function(){},
+    playerLifeCheck: function(playerLife){
+        let currentPlayerLife = playerLife;
+        if(currentPlayerLife <= 0) {
+          this.playerLost = true;
+          let lostMsg = 'You lost... Try again.';
+          this.finalMessage = lostMsg;
+          console.log(this.finalMessage);
+          return this.finalMessage;
+        }
+    },
+    enemyLifeCheck: function (enemyLife){
+      let currentPlayerLife = enemyLife;
+        if(currentPlayerLife <= 0) {
+          this.enemyLost = true;
+          console.log(this.enemyLost);
+          let lastMsg = 'You Won... Start A new game?';
+          this.finalMessage = lastMsg;
+          console.log(this.finalMessage);
+          return this.finalMessage;
+        }
+    }
+  },
+  computed:{
   }
+
 };
 </script>
 
