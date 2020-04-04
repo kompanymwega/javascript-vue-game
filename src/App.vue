@@ -16,18 +16,17 @@
         <v-card-text >
           <!-- <span> {{ this.countDown }}</span> <br /> -->
 
-          <v-btn flat color="blue" @click="this.countDown"> Begin Game</v-btn>
+          <v-btn flat color="blue" @click="this.countDown" v-if="!gameStart"> Begin Game</v-btn>
         </v-card-text>
       </v-card>
 
-      <Playground />
+      <Playground v-if="gameStart" />
     </v-flex>
   </v-layout>
 </template>
 
 <script>
 import Playground from "./components/playground";
-import { number } from 'prop-types';
 
 export default {
   name: "app",
@@ -38,7 +37,8 @@ export default {
     return {
       // implement countdown with js
       countDownValue: 120,
-      sessionTime: 240
+      sessionTime: 240,
+      gameStart: false
     };
   },
   methods: {
@@ -48,11 +48,13 @@ export default {
       let min = parseInt(countDownTime/60);
       let sec = parseInt(countDownTime % 60);
       let output = this.formatTime(min)+' : '+ this.formatTime(sec);
-      console.log(output);
+      // console.log(output);
       return output;
 
     },
     countDown: function() {
+      this.gameStart = true;
+      // console.log(this.gameStart);
 
       if(this.sessionTime){
         let newValue = parseInt(this.sessionTime);
@@ -75,12 +77,12 @@ export default {
       let numbers = new String(digits);
       // console.log(numbers);
       if(numbers.length >1){
-        console.log(digits);
+        // console.log(digits);
         return digits;
       } else {
         // console.log(digits);
         let formatedStr = '0'+ digits;
-        console.log(formatedStr);
+        // console.log(formatedStr);
         return formatedStr;
       }
     }
