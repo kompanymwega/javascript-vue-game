@@ -6,7 +6,7 @@
         <v-card-title class="app-title">***Last-Man Standing***</v-card-title>
         <v-spacer></v-spacer>
 
-        <h4 class="text">$ Defeat the Boss to advance $</h4>
+        <h4 class="text">$ Defeat the Boss $</h4>
         <v-spacer></v-spacer>
 
         <v-card-text>Game Session: {{ this.sessionDisplay() }}</v-card-text>
@@ -69,6 +69,9 @@ export default {
             newValue = newValue - 1;
             // console.log(newValue);
             this.sessionTime = newValue;
+            if(this.sessionTime === limit) {
+              this.gameStart = false;
+            }
             // startValue = newValue;
             return this.sessionTime;
           }

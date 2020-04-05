@@ -8,10 +8,19 @@
   <!-- use animations to show attacks and healing happenning in app -->
   <v-layout row nowrap>
     <v-layout row style="width: 100%;">
-        <v-flex xs6 v-if="playerLost || enemyLost" style="margin-top: 20px; margin-left: auto; margin-right: auto;">
+        <v-flex xs6 v-if="playerLost" style="margin-top: 20px; margin-left: auto; margin-right: auto;">
           <v-card >
           <v-card-title>
             <h6 v-text="finalMessage" style="color: red; text-align: center; font-weight: 200; font-size: 1.3em;">{{finalMessage}}</h6>
+            <v-btn color="green" flat href="/">Restart Game?</v-btn>
+          </v-card-title>
+        </v-card>
+        </v-flex>
+        <v-flex xs6 v-else-if="playerWon" style="margin-top: 20px; margin-left: auto; margin-right: auto;">
+          <v-card >
+          <v-card-title>
+            <h6 v-text="finalMessage" style="color: red; text-align: center; font-weight: 200; font-size: 1.3em;">{{finalMessage}}</h6>
+            <v-btn color="green" flat href="/">Restart Game?</v-btn>
           </v-card-title>
         </v-card>
         </v-flex>
@@ -25,16 +34,12 @@
             </div>
           </v-card-title>
           
-          <v-card-actions v-if="!playerLost || enemyLost">
+          <v-card-actions v-if="!playerLost">
             <v-btn flat color="red" @click="this.attackBoss" >Attack</v-btn>
             <v-btn flat color="orange" @click="this.defendPlayer" >Defend</v-btn>
             <!-- <v-spacer></v-spacer> -->
             <v-btn flat color="green" @click="this.healPlayer">Heal</v-btn>
           </v-card-actions>
-          <v-card-actions v-else>
-            <h3 v-text="finalMessage" color="red">{{finalMessage}}</h3> 
-          </v-card-actions>
-
         </v-card>
         
       </v-flex>
@@ -71,13 +76,18 @@ export default {
       // add enemy life to 1qual the player life
       enemy: 200,
       playerLost: false,
+      playerWon: false,
       enemyLost: false,
       finalMessage: ''
     };
   },
   methods: {
+    restart: function(){
+      ;
+    },
     showPlayerLife: function(){
       let life = this.player;
+      this.playerLifeCheck(life);
       // console.log(life);
       return life;
     },
@@ -143,6 +153,10 @@ export default {
             checkLifeState = maxValue;
             // console.log(checkLifeState);
             return checkLifeState;
+        } else if(checkLifeState < 0){
+          let minValue = 0;
+          checkLifeState = minValue;
+          return minValue;
         }
       }, 100);
     },
@@ -150,6 +164,8 @@ export default {
         let currentPlayerLife = playerLife;
         if(currentPlayerLife <= 0) {
           this.playerLost = true;
+          // just for playing with different displays
+          this.playerWon = false;
           let lostMsg = 'You lost... Try again.';
           this.finalMessage = lostMsg;
           // console.log(this.finalMessage);
@@ -167,6 +183,7 @@ export default {
           // console.log(this.enemyLost);
           let lastMsg = 'You Won... Start A new game?';
           this.finalMessage = lastMsg;
+          this.playerWon = true;
           // console.log(this.finalMessage);
           return this.finalMessage;
         }
