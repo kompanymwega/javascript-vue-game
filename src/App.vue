@@ -9,7 +9,7 @@
         <h4 class="text">$ Defeat the Boss to advance $</h4>
         <v-spacer></v-spacer>
 
-        <v-card-text>Total_session_time: {{ this.sessionDisplay() }} min.</v-card-text>
+        <v-card-text>Game Session: {{ this.sessionDisplay() }}</v-card-text>
       </v-card>
       <v-spacer></v-spacer>
       <v-card>
@@ -27,6 +27,9 @@
 
 <script>
 import Playground from "./components/playground";
+// add restart button later
+//  add logic for when player wins or looses;
+// add logic for closing game once timer ends
 
 export default {
   name: "app",
@@ -35,7 +38,7 @@ export default {
   },
   data() {
     return {
-      // implement countdown with js
+      // implement countdown with js - done
       countDownValue: 120,
       sessionTime: 240,
       gameStart: false
@@ -47,7 +50,7 @@ export default {
       // console.log(typeof(this.sessionTime));
       let min = parseInt(countDownTime/60);
       let sec = parseInt(countDownTime % 60);
-      let output = this.formatTime(min)+' : '+ this.formatTime(sec);
+      let output = this.formatTime(min)+':'+ this.formatTime(sec);
       // console.log(output);
       return output;
 
