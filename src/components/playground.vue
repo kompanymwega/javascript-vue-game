@@ -34,7 +34,7 @@
             </div>
           </v-card-title>
           
-          <v-card-actions v-if="!playerLost">
+          <v-card-actions v-if="!playerWon">
             <v-btn flat color="red" @click="this.attackBoss" >Attack</v-btn>
             <v-btn flat color="orange" @click="this.defendPlayer" >Defend</v-btn>
             <!-- <v-spacer></v-spacer> -->
@@ -82,9 +82,6 @@ export default {
     };
   },
   methods: {
-    restart: function(){
-      ;
-    },
     showPlayerLife: function(){
       let life = this.player;
       this.playerLifeCheck(life);
@@ -180,6 +177,7 @@ export default {
       let currentPlayerLife = enemyLife;
         if(currentPlayerLife <= 0) {
           this.enemyLost = true;
+          this.playerWon = true;
           // console.log(this.enemyLost);
           let lastMsg = 'You Won... Start A new game?';
           this.finalMessage = lastMsg;
