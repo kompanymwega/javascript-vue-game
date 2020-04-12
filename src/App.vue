@@ -6,27 +6,30 @@
         <v-card-title class="app-title">***Last-Man Standing***</v-card-title>
         <v-spacer></v-spacer>
 
-        <h4 class="text">$ Defeat the Boss to advance $</h4>
+        <h4 class="text">$ Defeat the Boss $</h4>
         <v-spacer></v-spacer>
 
-        <v-card-text>Total_session_time: {{ countDownBarStart }} sec.</v-card-text>
+        <v-card-text>Game Session: {{ this.sessionDisplay() }}</v-card-text>
       </v-card>
       <v-spacer></v-spacer>
       <v-card>
         <v-card-text >
-          <span> {{ this.countDown }}</span> <br />
+          <!-- <span> {{ this.countDown }}</span> <br /> -->
 
-          <v-btn flat color="blue"> Begin Game</v-btn>
+          <v-btn flat color="blue" @click="this.countDown" v-if="!gameStart"> Begin Game</v-btn>
         </v-card-text>
       </v-card>
 
-      <Playground />
+      <Playground v-if="gameStart" />
     </v-flex>
   </v-layout>
 </template>
 
 <script>
 import Playground from "./components/playground";
+// add restart button later
+//  add logic for when player wins or looses;
+// add logic for closing game once timer ends
 
 export default {
   name: "app",
@@ -35,30 +38,69 @@ export default {
   },
   data() {
     return {
-      // implement countdown with js
-      countDownBarStart: "120"
+      // implement countdown with js - done
+      countDownValue: 120,
+      sessionTime: 240,
+      gameStart: false
     };
+  },
+  methods: {
+    sessionDisplay: function(){
+      let countDownTime = parseInt(this.sessionTime);
+      // console.log(typeof(this.sessionTime));
+      let min = parseInt(countDownTime/60);
+      let sec = parseInt(countDownTime % 60);
+      let output = this.formatTime(min)+':'+ this.formatTime(sec);
+      // console.log(output);
+      return output;
+
+    },
+    countDown: function() {
+      this.gameStart = true;
+      // console.log(this.gameStart);
+
+      if(this.sessionTime){
+        let newValue = parseInt(this.sessionTime);
+
+        setInterval(()=>{
+          // console,log(newValue);
+          let limit = 0;
+          while (newValue !== limit) {
+            newValue = newValue - 1;
+            // console.log(newValue);
+            this.sessionTime = newValue;
+            if(this.sessionTime === limit) {
+              this.gameStart = false;
+            }
+            // startValue = newValue;
+            return this.sessionTime;
+          }
+        }, 1000);
+      } 
+    },
+    formatTime(digits){
+      
+      let numbers = new String(digits);
+      // console.log(numbers);
+      if(numbers.length >1){
+        // console.log(digits);
+        return digits;
+      } else {
+        // console.log(digits);
+        let formatedStr = '0'+ digits;
+        // console.log(formatedStr);
+        return formatedStr;
+      }
+    }
+
   },
   computed: {
     getTime: function() {
       let current = new Date();
       let localTime = current.toDateString();
       return localTime;
-    },
-    countDown: function() {
-      let startValue = this.countDownBarStart;
-
-      let newValue = parseInt(startValue);
-
-      let limit = 0;
-
-      while (newValue >= limit) {
-        let deduct = newValue--;
-        console.log(deduct);
-        return deduct;
-      } 
-
     }
+
   }
 };
 </script>
@@ -77,7 +119,7 @@ export default {
 }
 .app-title {
   padding-bottom: 30px;
-  align-self: center;
+  justify-content: center;
   font-size: 2.4em;
   font-weight: 400;
 }
