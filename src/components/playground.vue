@@ -153,7 +153,7 @@ export default {
         } else if(checkLifeState < 0){
           let minValue = 0;
           checkLifeState = minValue;
-          return minValue;
+          return checkLifeState;
         }
       }, 100);
     },
