@@ -16,7 +16,7 @@
     "@material-ui/core": "^4.0.0-rc.0",
     "core-js": "^3.3.4",
     "vue": "^2.6.10",
-    "vue-router": "^3.0.6",
+    "vue-router": "^3.3.2",
     "vuetify": "^2.1.7"
   },
   "devDependencies": {
